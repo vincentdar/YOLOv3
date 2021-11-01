@@ -18,8 +18,8 @@ iou_threshold = 0.5
 confidence_threshold = 0.5
 
 cfgfile = 'cfg/yolov3.cfg'
-weightfile = 'weights/yolov3_weights.tf'
-img_path = "data/images/pizza.jpg"
+weightfile = 'weights/yolov3_weights.h5'
+img_path = "data/images/dog.jpg"
 
 def main():
     model = YOLOv3Net(cfgfile, model_size, num_classes)

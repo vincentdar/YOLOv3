@@ -53,7 +53,7 @@ def main():
     load_weights(model, cfgfile, weightfile)
 
     try:
-        model.save_weights('weights/yolov3_weights.tf')
+        model.save_weights('weights/yolov3_weights.h5')
         print('\nThe file \'yolov3_weights.tf\' has been saved successfully.')
     except IOError:
         print("Couldn't write the file \'yolov3_weights.tf\'.")
