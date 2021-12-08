@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author: Your name
+# @Date:   2021-10-30 12:47:46
+# @Last Modified by:   Your name
+# @Last Modified time: 2021-12-08 09:55:35
 import tensorflow as tf
 from tensorflow.python.eager.context import PhysicalDevice
 from utils import load_class_names, output_boxes, draw_outputs, resize_image
@@ -19,7 +24,7 @@ confidence_threshold = 0.5
 
 cfgfile = 'cfg/yolov3.cfg'
 weightfile = 'weights/yolov3_weights.h5'
-img_path = "data/images/dog.jpg"
+img_path = "data/images/komi.png"
 
 def main():
     model = YOLOv3Net(cfgfile, model_size, num_classes)
