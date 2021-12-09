@@ -2,7 +2,7 @@
 # @Author: Your name
 # @Date:   2021-10-30 12:47:46
 # @Last Modified by:   Your name
-# @Last Modified time: 2021-12-08 09:55:35
+# @Last Modified time: 2021-12-09 09:57:52
 import tensorflow as tf
 from tensorflow.python.eager.context import PhysicalDevice
 from utils import load_class_names, output_boxes, draw_outputs, resize_image
@@ -32,27 +32,29 @@ def main():
 
     class_names = load_class_names(class_name)
 
-    image = cv2.imread(img_path)
-    image = np.array(image)
-    image = tf.expand_dims(image, 0)
+    while(True):
+        
+        image = cv2.imread(input("Input Filename (data/images/komi.png): "))
+        image = np.array(image)
+        image = tf.expand_dims(image, 0)
 
-    resized_frame = resize_image(image, (model_size[0], model_size[1]))
-    pred = model.predict(resized_frame)
+        resized_frame = resize_image(image, (model_size[0], model_size[1]))
+        pred = model.predict(resized_frame)
 
-    boxes, scores, classes, nums = output_boxes(
-        pred, model_size,
-        max_output_size=max_output_size,
-        max_output_size_per_class=max_output_size_per_class,
-        iou_threshold=iou_threshold,
-        confidence_threshold=confidence_threshold)
+        boxes, scores, classes, nums = output_boxes(
+            pred, model_size,
+            max_output_size=max_output_size,
+            max_output_size_per_class=max_output_size_per_class,
+            iou_threshold=iou_threshold,
+            confidence_threshold=confidence_threshold)
 
-    image = np.squeeze(image)
-    img = draw_outputs(image, boxes, scores, classes, nums, class_names)
+        image = np.squeeze(image)
+        img = draw_outputs(image, boxes, scores, classes, nums, class_names)
 
-    win_name = 'Image detection'
-    cv2.imshow(win_name, img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+        win_name = 'Image detection'
+        cv2.imshow(win_name, img)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
 
     #If you want to save the result, uncommnent the line below:
     # cv2.imwrite('test-result.jpg', img)
