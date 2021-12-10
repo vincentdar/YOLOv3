@@ -1,1 +1,6 @@
-weights/yolov3.weights
+weights
+__pycache__
+data/images
+data/videos
+Uploads
+result
