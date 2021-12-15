@@ -2,10 +2,11 @@
 # @Author: Your name
 # @Date:   2021-12-09 09:57:49
 # @Last Modified by:   Your name
-# @Last Modified time: 2021-12-09 20:27:46
+# @Last Modified time: 2021-12-15 16:25:43
 from flask import Flask, jsonify, flash, request, url_for, redirect, session, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 import os
+import uuid
 from ImageDetector import ImageDetector
 
 UPLOAD_FOLDER = 'Uploads'
@@ -37,10 +38,14 @@ def index():
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
+            my_uuid = str(uuid.uuid4())
+            filename = my_uuid + ".jpg"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            imageDetector.predict(app.config['UPLOAD_FOLDER'] + "/" + filename)
+            status = imageDetector.predict(filename)
+            print("UUID:", my_uuid)
+            print("Status:", status)
             print("DETECTOR WORKING")
-            return redirect(url_for('download_file', name='test-images.jpg'))
+            return redirect(url_for('download_file', name=filename))
     return render_template('index.html')
 
 
