@@ -2,12 +2,16 @@
 # @Author: Your name
 # @Date:   2021-12-09 09:57:49
 # @Last Modified by:   Your name
-# @Last Modified time: 2021-12-15 16:25:43
+# @Last Modified time: 2021-12-16 18:22:05
+from clean import Cleaner
 from flask import Flask, jsonify, flash, request, url_for, redirect, session, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 import os
 import uuid
 from ImageDetector import ImageDetector
+from waitress import serve
+from clean import Cleaner
+
 
 UPLOAD_FOLDER = 'Uploads'
 RESULT_FOLDER = 'result'
@@ -18,6 +22,7 @@ app.config['RESULT_FOLDER'] = RESULT_FOLDER
 app.config['SECRET_KEY'] = 'thisisasecret'
 
 imageDetector = ImageDetector()
+cleaner = Cleaner()
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSION
@@ -30,7 +35,6 @@ def index():
             flash('No file part')
             return redirect(request.url)
         file = request.files['file']
-        print(type(file))
         # If the user does not select a file, the browser submits an
         # empty file without a filename.
         if file.filename == '':
@@ -41,10 +45,7 @@ def index():
             my_uuid = str(uuid.uuid4())
             filename = my_uuid + ".jpg"
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            status = imageDetector.predict(filename)
-            print("UUID:", my_uuid)
-            print("Status:", status)
-            print("DETECTOR WORKING")
+            imageDetector.predict(filename)
             return redirect(url_for('download_file', name=filename))
     return render_template('index.html')
 
@@ -53,8 +54,13 @@ def index():
 def download_file(name):
     return send_from_directory(app.config["RESULT_FOLDER"], name)
     
+
     
-if __name__ == '__main__':   
-    app.run(host='0.0.0.0',debug=True)
+if __name__ == '__main__':
+    cleaner.start()
+    # app.run(host='0.0.0.0',debug=True)
+    serve(app, host='0.0.0.0', port=80)
+    cleaner.stop()
+    
     
     

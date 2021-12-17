@@ -2,18 +2,22 @@
   @Author: Your name
   @Date:   2021-12-09 19:26:36
   @Last Modified by:   Your name
-  @Last Modified time: 2021-12-15 16:28:09
+  @Last Modified time: 2021-12-16 14:42:34
 -->
 <!DOCTYPE html>
+<head>
+    <title>Yolov3 App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
 <html lang="en">
     <head>
         <meta charset="utf-8">
     </head>
     <body>
         <h1>Flask YOLOv3 App</h1>
-        <form method=post enctype=multipart/form-data>
+        <form method=post enctype=multipart/form-data id="uploadform">
             <input type=file name=file>
-            <input type=submit value=Upload>
+            <input type=submit value=Upload id="submit">
         </form>
     </body>
 </html>

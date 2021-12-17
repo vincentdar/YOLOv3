@@ -2,7 +2,7 @@
 # @Author: Your name
 # @Date:   2021-12-09 11:24:00
 # @Last Modified by:   Your name
-# @Last Modified time: 2021-12-15 16:25:42
+# @Last Modified time: 2021-12-16 18:21:19
 import tensorflow as tf
 from tensorflow.python.eager.context import PhysicalDevice
 from utils import load_class_names, output_boxes, draw_outputs, resize_image
@@ -14,9 +14,9 @@ from yolov3 import YOLOv3Net
 # os.environ["CUDA_VISIBLE_DEVICES"]="-1"    
 
 
-PhysicalDevice = tf.config.experimental.list_physical_devices('GPU')
-assert len(PhysicalDevice) > 0, "Not enough GPU hardware devices"
-tf.config.experimental.set_memory_growth(PhysicalDevice[0], True)
+# PhysicalDevice = tf.config.experimental.list_physical_devices('GPU')
+# assert len(PhysicalDevice) > 0, "Not enough GPU hardware devices"
+# tf.config.experimental.set_memory_growth(PhysicalDevice[0], True)
 
 
 class ImageDetector:

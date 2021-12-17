@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author: Your name
+# @Date:   2021-10-30 12:46:21
+# @Last Modified by:   Your name
+# @Last Modified time: 2021-12-16 14:45:11
 import tensorflow as tf
 from tensorflow.keras import Model
 from tensorflow.keras.layers import BatchNormalization, Conv2D, Input, ZeroPadding2D, LeakyReLU, UpSampling2D
@@ -129,7 +134,7 @@ def YOLOv3Net(cfg_file, model_size, num_classes):
         output_filters.append(filters)
 
     model = Model(input_image, out_pred)
-    model.summary()
+    # model.summary()
     return model
 
 
